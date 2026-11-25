@@ -21,16 +21,16 @@ if(sessionStorage.getItem("loggedIn") !== "true"){
 
 :root{
     --sidebar:#0f172a;
-    --card:#ffffff;
     --bg:#f8fafc;
+    --card:#ffffff;
     --text:#1e293b;
 }
 
 .dark-mode{
     --sidebar:#020617;
-    --card:#1e293b;
     --bg:#0f172a;
-    --text:#ffffff;
+    --card:#1e293b;
+    --text:#f8fafc;
 }
 
 body{
@@ -40,14 +40,14 @@ body{
 }
 
 .sidebar{
-    background:var(--sidebar);
     min-height:100vh;
+    background:var(--sidebar);
 }
 
 .sidebar a{
+    display:block;
     color:white;
     text-decoration:none;
-    display:block;
     padding:12px;
     border-radius:10px;
     margin-bottom:5px;
@@ -59,23 +59,28 @@ body{
 
 .card{
     border:none;
-    border-radius:16px;
+    border-radius:15px;
     background:var(--card);
     box-shadow:0 5px 20px rgba(0,0,0,.1);
 }
 
-.stat-card{
+.chart-container{
+    position:relative;
+    height:350px;
+}
+
+.status-card{
     transition:.3s;
 }
 
-.stat-card:hover{
+.status-card:hover{
     transform:translateY(-5px);
 }
 
 @media(max-width:768px){
 
 .sidebar{
-    min-height:auto;
+min-height:auto;
 }
 
 }
@@ -95,7 +100,7 @@ body{
 <div class="col-lg-2 sidebar p-3">
 
 <h4 class="text-white mb-4">
-IT Portal
+🌐 Network NOC
 </h4>
 
 <a href="dashboard.html">
@@ -120,11 +125,11 @@ IT Portal
 
 </div>
 
-<!-- Main -->
+<!-- MAIN -->
 
 <div class="col-lg-10">
 
-<!-- Navbar -->
+<!-- TOP NAV -->
 
 <nav class="navbar navbar-expand-lg bg-white shadow-sm">
 
