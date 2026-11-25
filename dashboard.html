@@ -82,19 +82,9 @@ body{
 </a>
 
 <a href="#">
-<i class="bi bi-box-arrow-right"></i>
+<i class="bi bi-box-arrow-right" onclick="logout()"></i>
  Logout
 </a>
-    <script>
-function logout(){
-
-    sessionStorage.removeItem("loggedIn");
-    sessionStorage.removeItem("username");
-
-    window.location.replace("index.html");
-
-}
-</script>
 
 </div>
 
@@ -255,6 +245,15 @@ System Status
 </div>
 
 </div>
+    <script>
+function logout(){
 
+    sessionStorage.removeItem("loggedIn");
+    sessionStorage.removeItem("username");
+
+    window.location.replace("index.html");
+
+}
+</script>
 </body>
 </html>
