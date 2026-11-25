@@ -2,135 +2,232 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hotel Portal Login to the moon</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel IT Portal</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
 <style>
+
 body{
-    background: linear-gradient(135deg,#0d6efd,#6610f2);
     min-height:100vh;
-}
-
-.login-card{
-    border:none;
-    border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,.2);
-}
-
-.logo{
-    width:80px;
-    height:80px;
-    background:#0d6efd;
-    color:white;
-    border-radius:50%;
     display:flex;
     justify-content:center;
     align-items:center;
-    margin:auto;
-    font-size:35px;
+    background:linear-gradient(135deg,#003566,#0077b6,#00b4d8);
+    font-family:'Segoe UI',sans-serif;
 }
+
+.login-card{
+    width:420px;
+    border:none;
+    border-radius:25px;
+    backdrop-filter:blur(20px);
+    background:rgba(255,255,255,0.15);
+    box-shadow:0 8px 32px rgba(0,0,0,.2);
+    color:white;
+}
+
+.logo{
+    width:90px;
+    height:90px;
+    margin:auto;
+    border-radius:50%;
+    background:white;
+    color:#0d6efd;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:40px;
+}
+
+.form-control{
+    height:48px;
+    border-radius:12px;
+}
+
+.btn-login{
+    height:50px;
+    border-radius:12px;
+    font-weight:600;
+}
+
+.form-control:focus{
+    box-shadow:none;
+}
+
+.small-text{
+    font-size:.85rem;
+}
+
 </style>
 
 </head>
 <body>
 
-<div class="container">
-<div class="row justify-content-center align-items-center min-vh-100">
-
-<div class="col-md-4">
-
 <div class="card login-card">
 
 <div class="card-body p-5">
 
-<div class="logo mb-3">
+<div class="logo mb-4">
 <i class="bi bi-building"></i>
 </div>
 
-<h3 class="text-center mb-2">
+<h2 class="text-center fw-bold">
 Hotel IT Portal
-</h3>
+</h2>
 
-<p class="text-center text-muted mb-4">
-Sign In
+<p class="text-center mb-4">
+Sign in to continue
 </p>
 
 <form id="loginForm">
 
 <div class="mb-3">
+
 <label class="form-label">
 Username
 </label>
 
 <input
 type="text"
-id="username"
 class="form-control"
-placeholder="Enter Username"
+id="username"
+placeholder="Enter username"
 required>
+
 </div>
 
 <div class="mb-3">
+
 <label class="form-label">
 Password
 </label>
 
+<div class="input-group">
+
 <input
 type="password"
-id="password"
 class="form-control"
-placeholder="Enter Password"
+id="password"
+placeholder="Enter password"
 required>
+
+<button
+class="btn btn-light"
+type="button"
+onclick="togglePassword()">
+
+<i id="eyeIcon" class="bi bi-eye"></i>
+
+</button>
+
 </div>
 
-<div id="errorMessage" class="alert alert-danger d-none">
-UPPPSSSS salah!!
 </div>
 
-<button type="submit" class="btn btn-primary w-100">
-Login
+<div class="d-flex justify-content-between mb-3">
+
+<div class="form-check">
+
+<input class="form-check-input"
+type="checkbox">
+
+<label class="form-check-label">
+Remember Me
+</label>
+
+</div>
+
+<a href="#" class="text-white text-decoration-none small-text">
+Forgot Password?
+</a>
+
+</div>
+
+<div id="errorMessage"
+class="alert alert-danger d-none">
+
+Invalid username or password
+
+</div>
+
+<button
+type="submit"
+class="btn btn-warning btn-login w-100">
+
+Sign In
+
 </button>
 
 </form>
 
-<div class="text-center mt-3 text-muted">
-Demo page
-</div>
+<hr class="border-light">
+
+<div class="text-center small-text">
+
+Demo Login<br>
+
+Username : <b>admin</b><br>
+Password : <b>admin</b>
 
 </div>
 
 </div>
 
-</div>
-
-</div>
 </div>
 
 <script>
 
-document.getElementById("loginForm").addEventListener("submit", function(e){
+function togglePassword(){
 
-    e.preventDefault();
+const password=
+document.getElementById("password");
 
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+const icon=
+document.getElementById("eyeIcon");
 
-    if(username === "admin" && password === "admin"){
+if(password.type==="password"){
+    password.type="text";
+    icon.className="bi bi-eye-slash";
+}else{
+    password.type="password";
+    icon.className="bi bi-eye";
+}
 
-        sessionStorage.setItem("loggedIn", "true");
-        sessionStorage.setItem("username", "admin");
+}
 
-        window.location.href = "dashboard.html";
+document
+.getElementById("loginForm")
+.addEventListener("submit",function(e){
 
-    }else{
+e.preventDefault();
 
-        document.getElementById("errorMessage")
-                .classList.remove("d-none");
-    }
+const username=
+document.getElementById("username").value;
+
+const password=
+document.getElementById("password").value;
+
+if(username==="admin" &&
+   password==="admin")
+{
+
+sessionStorage.setItem("loggedIn","true");
+sessionStorage.setItem("username",username);
+
+window.location.href="dashboard.html";
+
+}
+else
+{
+document.getElementById("errorMessage")
+.classList.remove("d-none");
+}
+
 });
+
 </script>
 
 </body>
