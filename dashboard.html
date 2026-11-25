@@ -349,6 +349,243 @@ window.onpopstate=function(){
 };
 
 </script>
+<div class="card mt-4">
+    <div class="card-header">
+        IT Ticket Management
+    </div>
 
+    <div class="card-body">
+
+        <div class="row mb-3">
+
+            <div class="col-md-4">
+                <input
+                    type="text"
+                    id="ticketTitle"
+                    class="form-control"
+                    placeholder="Issue Title">
+            </div>
+
+            <div class="col-md-3">
+                <select
+                    id="ticketPriority"
+                    class="form-select">
+
+                    <option>Low</option>
+                    <option>Medium</option>
+                    <option>High</option>
+
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <input
+                    type="text"
+                    id="ticketUser"
+                    class="form-control"
+                    placeholder="Requested By">
+            </div>
+
+            <div class="col-md-2">
+                <button
+                    class="btn btn-primary w-100"
+                    onclick="addTicket()">
+                    Add Ticket
+                </button>
+            </div>
+
+        </div>
+
+        <table class="table table-striped">
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Issue</th>
+                    <th>User</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody id="ticketTable">
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+    <script>
+
+let tickets =
+JSON.parse(localStorage.getItem("tickets")) || [];
+
+function saveTickets(){
+    localStorage.setItem(
+        "tickets",
+        JSON.stringify(tickets)
+    );
+}
+
+function addTicket(){
+
+    const title =
+    document.getElementById("ticketTitle").value;
+
+    const priority =
+    document.getElementById("ticketPriority").value;
+
+    const user =
+    document.getElementById("ticketUser").value;
+
+    if(title === "" || user === ""){
+        alert("Please complete all fields");
+        return;
+    }
+
+    const ticket = {
+
+        id: "IT" +
+            Date.now()
+            .toString()
+            .slice(-5),
+
+        title: title,
+
+        user: user,
+
+        priority: priority,
+
+        status: "Open"
+
+    };
+
+    tickets.push(ticket);
+
+    saveTickets();
+
+    renderTickets();
+
+    document.getElementById("ticketTitle").value="";
+    document.getElementById("ticketUser").value="";
+}
+
+function renderTickets(){
+
+    const table =
+    document.getElementById("ticketTable");
+
+    table.innerHTML = "";
+
+    tickets.forEach((ticket,index)=>{
+
+        let badgeColor="warning";
+
+        if(ticket.status==="Closed")
+            badgeColor="success";
+
+        if(ticket.status==="In Progress")
+            badgeColor="info";
+
+        table.innerHTML += `
+        <tr>
+
+            <td>${ticket.id}</td>
+
+            <td>${ticket.title}</td>
+
+            <td>${ticket.user}</td>
+
+            <td>
+
+                <span class="badge bg-danger">
+                    ${ticket.priority}
+                </span>
+
+            </td>
+
+            <td>
+
+                <span class="badge bg-${badgeColor}">
+                    ${ticket.status}
+                </span>
+
+            </td>
+
+            <td>
+
+                <button
+                    class="btn btn-sm btn-info"
+                    onclick="progressTicket(${index})">
+
+                    Progress
+
+                </button>
+
+                <button
+                    class="btn btn-sm btn-success"
+                    onclick="closeTicket(${index})">
+
+                    Close
+
+                </button>
+
+                <button
+                    class="btn btn-sm btn-danger"
+                    onclick="deleteTicket(${index})">
+
+                    Delete
+
+                </button>
+
+            </td>
+
+        </tr>
+        `;
+
+    });
+
+}
+
+function progressTicket(index){
+
+    tickets[index].status =
+    "In Progress";
+
+    saveTickets();
+
+    renderTickets();
+
+}
+
+function closeTicket(index){
+
+    tickets[index].status =
+    "Closed";
+
+    saveTickets();
+
+    renderTickets();
+
+}
+
+function deleteTicket(index){
+
+    if(confirm("Delete ticket?")){
+
+        tickets.splice(index,1);
+
+        saveTickets();
+
+        renderTickets();
+
+    }
+
+}
+
+renderTickets();
+
+</script>
 </body>
 </html>
