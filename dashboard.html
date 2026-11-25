@@ -85,6 +85,16 @@ body{
 <i class="bi bi-box-arrow-right"></i>
  Logout
 </a>
+    <script>
+function logout(){
+
+    sessionStorage.removeItem("loggedIn");
+    sessionStorage.removeItem("username");
+
+    window.location.replace("index.html");
+
+}
+</script>
 
 </div>
 
