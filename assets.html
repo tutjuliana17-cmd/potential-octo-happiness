@@ -18,12 +18,14 @@ if(sessionStorage.getItem("loggedIn") !== "true"){
 <style>
 
 :root{
-    --bg:#f4f6f9;
+    --sidebar:#0f172a;
+    --bg:#f8fafc;
     --card:#ffffff;
-    --text:#212529;
+    --text:#1e293b;
 }
 
 .dark-mode{
+    --sidebar:#020617;
     --bg:#0f172a;
     --card:#1e293b;
     --text:#f8fafc;
@@ -32,7 +34,25 @@ if(sessionStorage.getItem("loggedIn") !== "true"){
 body{
     background:var(--bg);
     color:var(--text);
-    transition:.3s;
+    overflow-x:hidden;
+}
+
+.sidebar{
+    min-height:100vh;
+    background:var(--sidebar);
+}
+
+.sidebar a{
+    display:block;
+    color:white;
+    text-decoration:none;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:5px;
+}
+
+.sidebar a:hover{
+    background:rgba(255,255,255,.15);
 }
 
 .card{
@@ -42,24 +62,25 @@ body{
     box-shadow:0 5px 20px rgba(0,0,0,.1);
 }
 
-.navbar{
-    box-shadow:0 1px 10px rgba(0,0,0,.1);
+.chart-container{
+    position:relative;
+    height:350px;
 }
 
-.summary-card{
+.status-card{
     transition:.3s;
 }
 
-.summary-card:hover{
+.status-card:hover{
     transform:translateY(-5px);
 }
 
-.table{
-    vertical-align:middle;
+@media(max-width:768px){
+
+.sidebar{
+min-height:auto;
 }
 
-.modal-content{
-    border-radius:15px;
 }
 
 </style>
@@ -101,6 +122,58 @@ body{
 </a>
 
 </div>
+
+<!-- MAIN -->
+
+<div class="col-lg-10">
+
+<!-- TOP NAV -->
+
+<nav class="navbar navbar-expand-lg bg-white shadow-sm">
+
+<div class="container-fluid">
+
+<span class="navbar-brand">
+
+Network Monitoring Dashboard
+
+</span>
+
+<div class="d-flex align-items-center">
+
+<span class="me-3">
+
+👤 <span id="username"></span>
+
+</span>
+
+<span
+id="currentTime"
+class="me-3 text-muted">
+
+</span>
+
+<button
+class="btn btn-dark btn-sm me-2"
+onclick="toggleTheme()">
+
+🌙
+
+</button>
+
+<button
+class="btn btn-danger btn-sm"
+onclick="logout()">
+
+Logout
+
+</button>
+
+</div>
+
+</div>
+
+</nav>
 
 <div class="container-fluid p-4">
 
