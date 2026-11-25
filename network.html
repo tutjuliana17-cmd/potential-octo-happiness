@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Network Monitoring</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+:root{
+    --sidebar:#0f172a;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --text:#1e293b;
+}
+
+.dark-mode{
+    --sidebar:#020617;
+    --bg:#0f172a;
+    --card:#1e293b;
+    --text:#f8fafc;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    overflow-x:hidden;
+}
+
+.sidebar{
+    min-height:100vh;
+    background:var(--sidebar);
+}
+
+.sidebar a{
+    display:block;
+    color:white;
+    text-decoration:none;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:5px;
+}
+
+.sidebar a:hover{
+    background:rgba(255,255,255,.15);
+}
+
+.card{
+    border:none;
+    border-radius:15px;
+    background:var(--card);
+    box-shadow:0 5px 20px rgba(0,0,0,.1);
+}
+
+.chart-container{
+    position:relative;
+    height:350px;
+}
+
+.status-card{
+    transition:.3s;
+}
+
+.status-card:hover{
+    transform:translateY(-5px);
+}
+
+@media(max-width:768px){
+
+.sidebar{
+min-height:auto;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container-fluid">
+
+<div class="row">
+
+<!-- SIDEBAR -->
+
+<div class="col-lg-2 sidebar p-3">
+
+<h4 class="text-white mb-4">
+🌐 Network NOC
+</h4>
+
+<a href="dashboard.html">
+<i class="bi bi-speedometer2"></i>
+ Dashboard
+</a>
+
+<a href="assets.html">
+<i class="bi bi-pc-display"></i>
+ IT Assets
+</a>
+
+<a href="tickets.html">
+<i class="bi bi-ticket"></i>
+ IT Tickets
+</a>
+
+<a href="network.html">
+<i class="bi bi-diagram-3"></i>
+ Network
+</a>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="col-lg-10">
+
+<!-- TOP NAV -->
+
+<nav class="navbar navbar-expand-lg bg-white shadow-sm">
+
+<div class="container-fluid">
+
+<span class="navbar-brand">
+
+Network Monitoring Dashboard
+
+</span>
+
+<div class="d-flex align-items-center">
+
+<span class="me-3">
+
+👤 <span id="username"></span>
+
+</span>
+
+<span
+id="currentTime"
+class="me-3 text-muted">
+
+</span>
+
+<button
+class="btn btn-dark btn-sm me-2"
+onclick="toggleTheme()">
+
+🌙
+
+</button>
+
+<button
+class="btn btn-danger btn-sm"
+onclick="logout()">
+
+Logout
+
+</button>
+
+</div>
+
+</div>
+
+</nav>
+
+<!-- CONTENT -->
+
+<div class="container-fluid p-4">
+
+<!-- KPI -->
+
+<div class="row">
+
+<div class="col-md-3 mb-3">
+
+<div class="card bg-success text-white status-card">
+
+<div class="card-body">
+
+<h6>Internet Status</h6>
+
+<h3 id="internetStatus">
+
+Loading...
+
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3 mb-3">
+
+<div class="card bg-primary text-white status-card">
+
+<div class="card-body">
+
+<h6>Download</h6>
+
+<h3 id="downloadSpeed">
+
+0 Mbps
+
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3 mb-3">
+
+<div class="card bg-info text-white status-card">
+
+<div class="card-body">
+
+<h6>Upload</h6>
+
+<h3 id="uploadSpeed">
+
+0 Mbps
+
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3 mb-3">
+
+<div class="card bg-warning status-card">
+
+<div class="card-body">
+
+<h6>WiFi Users</h6>
+
+<h3 id="wifiUsers">
+
+0
+
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- SECOND ROW -->
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<div class="card">
+
+<div class="card-body">
+
+<h6>Online Devices</h6>
+
+<h1 id="onlineDevices">
+
+0
+
+</h1>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<div class="card">
+
+<div class="card-body">
+
+<h6>Offline Devices</h6>
+
+<h1 id="offlineDevices">
+
+0
+
+</h1>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- GRAPH -->
+
+<div class="card mb-4">
+
+<div class="card-header">
+
+Bandwidth Monitoring
+
+</div>
+
+<div class="card-body">
+
+<div class="chart-container">
+
+<canvas id="networkChart"></canvas>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- DEVICE TABLE -->
+
+<div class="card">
+
+<div class="card-header">
+
+Network Device Status
+
+</div>
+
+<div class="card-body">
+
+<div class="table-responsive">
+
+<table class="table table-hover">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>Device</th>
+<th>IP Address</th>
+<th>Status</th>
+<th>Latency</th>
+
+</tr>
+
+</thead>
+
+<tbody id="networkTable">
+
+<tr>
+
+<td colspan="4"
+class="text-center">
+
+Loading...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- SYSTEM OVERVIEW -->
+
+<div class="row mt-4">
+
+<div class="col-md-4 mb-3">
+
+<div class="card">
+
+<div class="card-body">
+
+<h5>Core Switch</h5>
+
+<span class="badge bg-success">
+
+Online
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-4 mb-3">
+
+<div class="card">
+
+<div class="card-body">
+
+<h5>Firewall</h5>
+
+<span class="badge bg-success">
+
+Online
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-4 mb-3">
+
+<div class="card">
+
+<div class="card-body">
+
+<h5>MRTG Monitor</h5>
+
+<span class="badge bg-success">
+
+Active
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="js/network.js"></script>
+
+</body>
+</html>
