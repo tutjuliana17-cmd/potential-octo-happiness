@@ -97,7 +97,7 @@ Login
 </form>
 
 <div class="text-center mt-3 text-muted">
-Demo Login : admin / admin
+Demo page
 </div>
 
 </div>
@@ -115,28 +115,22 @@ document.getElementById("loginForm").addEventListener("submit", function(e){
 
     e.preventDefault();
 
-    var username =
-        document.getElementById("username").value;
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
 
-    var password =
-        document.getElementById("password").value;
+    if(username === "admin" && password === "admin"){
 
-    if(username === "admin" &&
-       password === "admin")
-    {
-        alert("Login Berhasil");
+        sessionStorage.setItem("loggedIn", "true");
+        sessionStorage.setItem("username", "admin");
 
         window.location.href = "dashboard.html";
-    }
-    else
-    {
-        document
-        .getElementById("errorMessage")
-        .classList.remove("d-none");
-    }
 
+    }else{
+
+        document.getElementById("errorMessage")
+                .classList.remove("d-none");
+    }
 });
-
 </script>
 
 </body>
