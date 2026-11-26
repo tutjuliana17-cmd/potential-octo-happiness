@@ -346,6 +346,64 @@ padding:15px;
 
 }
 
+  /* FULLSCREEN BUTTON */
+
+#fullscreenBtn{
+
+position:absolute;
+
+bottom:20px;
+right:20px;
+
+background:rgba(212,175,55,.9);
+
+color:#000;
+
+border:none;
+
+padding:12px 18px;
+
+border-radius:12px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+z-index:9999;
+
+transition:.3s;
+
+}
+
+#fullscreenBtn:hover{
+
+transform:scale(1.05);
+
+}
+
+@media (min-width:1024px){
+
+#fullscreenBtn{
+
+opacity:.15;
+
+}
+
+#fullscreenBtn:hover{
+
+opacity:1;
+
+}
+
+}
+
+/* SIGNAGE MODE */
+
+body.signage{
+
+cursor:none;
+
+}
 </style>
 
 </head>
@@ -632,6 +690,116 @@ updateClock,
 updateClock();
 
 </script>
+<button
+id="fullscreenBtn"
+onclick="openFullscreen()">
 
+⛶ Full Screen
+
+</button>
+
+  <script>
+
+/* FULLSCREEN */
+
+function openFullscreen(){
+
+const elem =
+document.documentElement;
+
+if(elem.requestFullscreen){
+
+elem.requestFullscreen();
+
+}
+else if(elem.webkitRequestFullscreen){
+
+elem.webkitRequestFullscreen();
+
+}
+else if(elem.msRequestFullscreen){
+
+elem.msRequestFullscreen();
+
+}
+
+}
+
+/* EXIT */
+
+function closeFullscreen(){
+
+if(document.exitFullscreen){
+
+document.exitFullscreen();
+
+}
+
+}
+
+/* DOUBLE CLICK TOGGLE */
+
+document.addEventListener(
+"dblclick",
+function(){
+
+if(
+!document.fullscreenElement
+){
+
+openFullscreen();
+
+}
+else{
+
+closeFullscreen();
+
+}
+
+}
+);
+
+/* AUTO SIGNAGE MODE */
+
+function enableSignageMode(){
+
+document.body.classList.add(
+"signage"
+);
+
+}
+
+/* FIRST CLICK AUTO FULLSCREEN */
+
+document.addEventListener(
+"click",
+function(){
+
+if(
+!document.fullscreenElement
+){
+
+openFullscreen();
+
+enableSignageMode();
+
+}
+
+},
+{
+once:true
+}
+);
+
+</script>
+  <script>
+
+setInterval(() => {
+
+loadConfiguration();
+
+},30000);
+
+</script>
 </body>
 </html>
