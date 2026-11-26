@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>New Year Countdown 2027</title>
+<title>Countdown Display</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -17,57 +18,63 @@ padding:0;
 box-sizing:border-box;
 }
 
+:root{
+
+--gold:#d4af37;
+--bg1:#081225;
+--bg2:#10284d;
+
+}
+
 body{
 
-margin:0;
+font-family:'Montserrat',sans-serif;
 
-display:flex;
+background:
+radial-gradient(
+circle at top,
+#15376f,
+#081225 60%
+);
 
-justify-content:center;
-
-align-items:center;
+color:white;
 
 min-height:100vh;
 
 overflow:hidden;
 
+position:relative;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
 }
 
-/* GOLD PARTICLES */
+/* background dots */
 
-.particles{
+body::before{
+
+content:"";
 
 position:absolute;
+
 inset:0;
 
 background-image:
+
 radial-gradient(
-#D4AF37 1px,
+var(--gold) 1px,
 transparent 1px
 );
 
-background-size:50px 50px;
+background-size:40px 40px;
 
 opacity:.15;
 
-animation:
-moveParticles 20s linear infinite;
-
 }
 
-@keyframes moveParticles{
-
-from{
-background-position:0 0;
-}
-
-to{
-background-position:0 1000px;
-}
-
-}
-
-/* LOGOS */
+/* hotel logo */
 
 .logo-bar{
 
@@ -75,13 +82,6 @@ position:absolute;
 
 top:20px;
 left:20px;
-right:20px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
 
 z-index:10;
 
@@ -89,10 +89,9 @@ z-index:10;
 
 .logo-bar img{
 
-height:
-clamp(
-40px,
-8vw,
+height:clamp(
+50px,
+7vw,
 90px
 );
 
@@ -100,41 +99,36 @@ object-fit:contain;
 
 }
 
-
-/*.company-logo{
-
-background:white;
-
-padding:10px;
-
-border-radius:15px;
-
-}
-
-/* CLOCK */
+/* clock */
 
 .clock{
 
 position:absolute;
 
-top:45px;
-right:250px;
+top:30px;
+right:30px;
 
-font-size:1.2rem;
+font-size:clamp(
+1rem,
+2vw,
+1.8rem
+);
 
 font-weight:600;
 
-color:#D4AF37;
+color:var(--gold);
 
 z-index:10;
 
 }
 
-/* MAIN AREA */
+/* content */
 
-.container-box{
+.container{
 
 position:relative;
+
+z-index:5;
 
 width:100%;
 
@@ -142,11 +136,7 @@ max-width:1400px;
 
 padding:20px;
 
-margin:auto;
-
 text-align:center;
-
-z-index:10;
 
 }
 
@@ -159,18 +149,11 @@ clamp(
 1.4rem
 );
 
-letter-spacing:
-clamp(
-2px,
-0.8vw,
-8px
-);
+letter-spacing:6px;
 
-color:#D4AF37;
+color:var(--gold);
 
-margin-bottom:20px;
-
-text-align:center;
+margin-bottom:15px;
 
 }
 
@@ -180,21 +163,16 @@ font-size:
 clamp(
 1rem,
 3vw,
-1.8rem
+2rem
 );
 
-letter-spacing:
-clamp(
-3px,
-1vw,
-10px
-);
+letter-spacing:10px;
 
-margin-bottom:20px;
+margin-bottom:15px;
 
 }
 
-.company{
+.title{
 
 font-size:
 clamp(
@@ -203,25 +181,28 @@ clamp(
 6rem
 );
 
-}
-
 font-weight:700;
 
-margin-bottom:15px;
+margin-bottom:10px;
 
 }
 
 .subtitle{
 
-font-size:2rem;
+font-size:
+clamp(
+1rem,
+3vw,
+2rem
+);
 
-color:#D4AF37;
+color:var(--gold);
 
 margin-bottom:40px;
 
 }
 
-/* COUNTDOWN */
+/* countdown */
 
 .countdown{
 
@@ -231,28 +212,39 @@ justify-content:center;
 
 align-items:center;
 
-gap:20px;
-
 flex-wrap:wrap;
 
-width:100%;
+gap:20px;
 
-margin-top:30px;
+margin-bottom:40px;
 
 }
 
 .time-box{
 
+background:
+rgba(255,255,255,.08);
+
+border:
+1px solid rgba(255,255,255,.1);
+
+backdrop-filter:
+blur(10px);
+
+border-radius:20px;
+
 width:
 clamp(
 90px,
-15vw,
+18vw,
 180px
 );
 
+padding:20px;
+
 }
 
-.time-number{
+.time-value{
 
 font-size:
 clamp(
@@ -261,155 +253,94 @@ clamp(
 4rem
 );
 
-}
-
 font-weight:700;
 
-color:#D4AF37;
-
-animation:
-pulse 1s infinite;
+color:var(--gold);
 
 }
 
 .time-label{
 
-font-size:1rem;
+font-size:
+clamp(
+.7rem,
+1vw,
+1rem
+);
 
 letter-spacing:2px;
 
-text-transform:uppercase;
+margin-top:5px;
 
 }
 
-@keyframes pulse{
-
-0%{
-transform:scale(1);
-}
-
-50%{
-transform:scale(1.08);
-}
-
-100%{
-transform:scale(1);
-}
-
-}
-
-/* STATUS */
+/* status */
 
 .status{
 
-margin-top:50px;
-
-font-size:2rem;
+font-size:
+clamp(
+1rem,
+2vw,
+2rem
+);
 
 font-weight:600;
 
-animation:
-glow 2s infinite alternate;
+color:white;
 
-}
-
-@keyframes glow{
-
-from{
-text-shadow:
-0 0 10px #D4AF37;
-}
-
-to{
+margin-bottom:20px;
 
 text-shadow:
-0 0 20px #FFD700,
-0 0 40px #FFD700;
+0 0 15px #d4af37;
 
 }
 
-}
+/* footer */
 
 .footer{
 
-margin-top:30px;
+font-size:
+clamp(
+0.8rem,
+1.5vw,
+1.2rem
+);
 
-font-size:1.2rem;
-
-color:#d1d5db;
+opacity:.9;
 
 }
- @media (max-width:768px){
+
+/* mobile */
+
+@media(max-width:768px){
+
+.clock{
+
+position:static;
+
+margin-bottom:20px;
+
+}
 
 .logo-bar{
 
 top:15px;
-
 left:15px;
-right:15px;
 
 }
 
-.clock{
+.countdown{
 
-display:none;
-
-}
-
-.company{
-
-font-size:2.5rem;
-
-}
-
-.subtitle{
-
-font-size:1.2rem;
+gap:10px;
 
 }
 
 .time-box{
 
-width:120px;
-
-}
-
-.status{
-
-font-size:1.3rem;
-
-}
-
-.footer{
-
-font-size:.9rem;
-
-padding-left:20px;
-padding-right:20px;
-
-}
-
-}
-
-@media (max-width:480px){
-
-.time-box{
-
-width:90px;
+width:110px;
 
 padding:15px;
-
-}
-
-.time-number{
-
-font-size:2rem;
-
-}
-
-.time-label{
-
-font-size:.8rem;
 
 }
 
@@ -421,10 +352,6 @@ font-size:.8rem;
 
 <body>
 
-<div class="particles"></div>
-
-<!-- LOGOS -->
-
 <div class="logo-bar">
 
 <img
@@ -432,26 +359,19 @@ id="hotelLogo"
 src="hotel-logo.png"
 alt="Hotel Logo">
 
-<img
-id="companyLogo"
-src="company-logo.png"
-class="company-logo"
-alt="Company Logo">
-
 </div>
-
-<!-- CLOCK -->
 
 <div
 class="clock"
 id="currentClock">
+
 </div>
 
-<!-- MAIN -->
+<div class="container">
 
-<div class="container-box">
-
-<div class="hotel-name">
+<div
+class="hotel-name"
+id="hotelName">
 
 ALOFT JAKARTA KEBON JERUK
 
@@ -463,13 +383,17 @@ WELCOME
 
 </div>
 
-<div class="company">
+<div
+class="title"
+id="mainTitle">
 
 2027
 
 </div>
 
-<div class="subtitle">
+<div
+class="subtitle"
+id="subtitle">
 
 NEW YEAR COUNTDOWN
 
@@ -480,7 +404,7 @@ NEW YEAR COUNTDOWN
 <div class="time-box">
 
 <div
-class="time-number"
+class="time-value"
 id="days">
 
 0
@@ -488,9 +412,7 @@ id="days">
 </div>
 
 <div class="time-label">
-
-Days
-
+DAYS
 </div>
 
 </div>
@@ -498,7 +420,7 @@ Days
 <div class="time-box">
 
 <div
-class="time-number"
+class="time-value"
 id="hours">
 
 0
@@ -506,9 +428,7 @@ id="hours">
 </div>
 
 <div class="time-label">
-
-Hours
-
+HOURS
 </div>
 
 </div>
@@ -516,7 +436,7 @@ Hours
 <div class="time-box">
 
 <div
-class="time-number"
+class="time-value"
 id="minutes">
 
 0
@@ -524,9 +444,7 @@ id="minutes">
 </div>
 
 <div class="time-label">
-
-Minutes
-
+MINUTES
 </div>
 
 </div>
@@ -534,7 +452,7 @@ Minutes
 <div class="time-box">
 
 <div
-class="time-number"
+class="time-value"
 id="seconds">
 
 0
@@ -542,9 +460,7 @@ id="seconds">
 </div>
 
 <div class="time-label">
-
-Seconds
-
+SECONDS
 </div>
 
 </div>
@@ -559,7 +475,9 @@ id="statusMessage">
 
 </div>
 
-<div class="footer">
+<div
+class="footer"
+id="footerText">
 
 01 JANUARY 2027 • 00:00 WIB
 
@@ -567,16 +485,14 @@ id="statusMessage">
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.10.7/dist/index.umd.js"></script>
-
 <script>
 
-// TARGET NEW YEAR
-
-let eventDate =
+let targetDate =
 new Date(
 "2027-01-01T00:00:00"
 ).getTime();
+
+function loadConfiguration(){
 
 const config =
 JSON.parse(
@@ -585,74 +501,48 @@ localStorage.getItem(
 )
 );
 
-if(config){
+if(!config)
+return;
 
-document.querySelector(
-".hotel-name"
-).innerHTML =
-config.hotelName;
+hotelName.innerHTML =
+config.hotelName || "";
 
-document.querySelector(
-".company"
-).innerHTML =
-config.mainTitle;
+mainTitle.innerHTML =
+config.mainTitle || "";
 
-document.querySelector(
-".subtitle"
-).innerHTML =
-config.subtitle;
+subtitle.innerHTML =
+config.subtitle || "";
 
-document.getElementById(
-"statusMessage"
-).innerHTML =
-config.statusText;
+statusMessage.innerHTML =
+config.statusText || "";
 
-document.querySelector(
-".footer"
-).innerHTML =
-config.footer;
-
-eventDate =
-new Date(
-config.eventDate
-).getTime();
+footerText.innerHTML =
+config.footer || "";
 
 if(config.hotelLogo){
 
-document.querySelector(
-".logo-bar img:first-child"
-).src =
+hotelLogo.src =
 config.hotelLogo;
 
 }
 
-if(config.companyLogo){
+if(config.eventDate){
 
-document.querySelector(
-".company-logo"
-).src =
-config.companyLogo;
-
-}
+targetDate =
+new Date(
+config.eventDate
+).getTime();
 
 }
 
-// FIREWORKS
-
-const fireworks =
-new Fireworks.default(
-document.body,
-{
-autoresize:true,
-opacity:0.5,
-acceleration:1.05,
-friction:0.97,
-gravity:1.5,
-particles:120
 }
+
+loadConfiguration();
+
+setInterval(
+loadConfiguration,
+30000
 );
-
-let started = false;
 
 function updateCountdown(){
 
@@ -660,38 +550,12 @@ const now =
 new Date().getTime();
 
 const distance =
-eventDate - now;
+targetDate - now;
 
 if(distance <= 0){
 
-document.getElementById(
-"statusMessage"
-).innerHTML =
-
-"🎉 HAPPY NEW YEAR 2027 🎉";
-
-document.querySelector(
-".company"
-).innerHTML =
-
-"2027";
-
-document.body.style.background =
-
-"linear-gradient(135deg,#7c3aed,#ec4899,#f59e0b)";
-
-document.getElementById("days").innerHTML = "0";
-document.getElementById("hours").innerHTML = "0";
-document.getElementById("minutes").innerHTML = "0";
-document.getElementById("seconds").innerHTML = "0";
-
-if(!started){
-
-fireworks.start();
-
-started = true;
-
-}
+statusMessage.innerHTML =
+"🎉 EVENT STARTED 🎉";
 
 return;
 
@@ -699,7 +563,8 @@ return;
 
 const days =
 Math.floor(
-distance /(1000*60*60*24)
+distance /
+(1000*60*60*24)
 );
 
 const hours =
@@ -726,40 +591,34 @@ Math.floor(
 1000
 );
 
-document.getElementById(
-"days"
-).innerHTML = days;
+document.getElementById("days")
+.innerHTML =
+days;
 
-document.getElementById(
-"hours"
-).innerHTML = hours;
+document.getElementById("hours")
+.innerHTML =
+hours;
 
-document.getElementById(
-"minutes"
-).innerHTML = minutes;
+document.getElementById("minutes")
+.innerHTML =
+minutes;
 
-document.getElementById(
-"seconds"
-).innerHTML = seconds;
+document.getElementById("seconds")
+.innerHTML =
+seconds;
 
 }
 
-setInterval(() => {
-
-loadConfiguration();
-
-},30000);
+setInterval(
+updateCountdown,
+1000
+);
 
 updateCountdown();
 
-// CLOCK
-
 function updateClock(){
 
-document.getElementById(
-"currentClock"
-).innerHTML =
-
+currentClock.innerHTML =
 new Date()
 .toLocaleString();
 
@@ -773,75 +632,6 @@ updateClock,
 updateClock();
 
 </script>
-<script>
 
-function loadConfiguration(){
-
-    const config = JSON.parse(
-        localStorage.getItem(
-            "countdownConfig"
-        )
-    );
-
-    if(!config) return;
-
-    document.querySelector(
-        ".hotel-name"
-    ).innerHTML =
-    config.hotelName;
-
-    document.querySelector(
-        ".company"
-    ).innerHTML =
-    config.mainTitle;
-
-    document.querySelector(
-        ".subtitle"
-    ).innerHTML =
-    config.subtitle;
-
-    document.getElementById(
-        "statusMessage"
-    ).innerHTML =
-    config.statusText;
-
-    document.querySelector(
-        ".footer"
-    ).innerHTML =
-    config.footer;
-
-    if(config.hotelLogo){
-
-        document.getElementById(
-            "hotelLogo"
-        ).src =
-        config.hotelLogo;
-
-    }
-
-    if(config.companyLogo){
-
-        document.getElementById(
-            "companyLogo"
-        ).src =
-        config.companyLogo;
-
-    }
-
-    eventDate =
-    new Date(
-        config.eventDate
-    ).getTime();
-
-}
-
-loadConfiguration();
-
-setInterval(
-    loadConfiguration,
-    30000
-);
-
-</script>
 </body>
 </html>
