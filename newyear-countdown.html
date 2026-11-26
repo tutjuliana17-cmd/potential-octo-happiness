@@ -320,13 +320,15 @@ color:#d1d5db;
 <div class="logo-bar">
 
 <img
+id="hotelLogo"
 src="hotel-logo.png"
-alt="Hotel">
+alt="Hotel Logo">
 
 <img
+id="companyLogo"
 src="company-logo.png"
-alt="Company"
-class="company-logo">
+class="company-logo"
+alt="Company Logo">
 
 </div>
 
@@ -463,10 +465,69 @@ id="statusMessage">
 
 // TARGET NEW YEAR
 
-const eventDate =
+let eventDate =
 new Date(
 "2027-01-01T00:00:00"
 ).getTime();
+
+const config =
+JSON.parse(
+localStorage.getItem(
+"countdownConfig"
+)
+);
+
+if(config){
+
+document.querySelector(
+".hotel-name"
+).innerHTML =
+config.hotelName;
+
+document.querySelector(
+".company"
+).innerHTML =
+config.mainTitle;
+
+document.querySelector(
+".subtitle"
+).innerHTML =
+config.subtitle;
+
+document.getElementById(
+"statusMessage"
+).innerHTML =
+config.statusText;
+
+document.querySelector(
+".footer"
+).innerHTML =
+config.footer;
+
+eventDate =
+new Date(
+config.eventDate
+).getTime();
+
+if(config.hotelLogo){
+
+document.querySelector(
+".logo-bar img:first-child"
+).src =
+config.hotelLogo;
+
+}
+
+if(config.companyLogo){
+
+document.querySelector(
+".company-logo"
+).src =
+config.companyLogo;
+
+}
+
+}
 
 // FIREWORKS
 
