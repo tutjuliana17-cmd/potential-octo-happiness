@@ -19,7 +19,11 @@ box-sizing:border-box;
 }
 
 :root{
+
 --gold:#d4af37;
+--bg1:#081225;
+--bg2:#10284d;
+
 }
 
 body{
@@ -39,15 +43,15 @@ min-height:100vh;
 
 overflow:hidden;
 
+position:relative;
+
 display:flex;
 justify-content:center;
 align-items:center;
 
-position:relative;
-
 }
 
-/* GOLD PARTICLES */
+/* background dots */
 
 body::before{
 
@@ -58,6 +62,7 @@ position:absolute;
 inset:0;
 
 background-image:
+
 radial-gradient(
 var(--gold) 1px,
 transparent 1px
@@ -67,121 +72,74 @@ background-size:40px 40px;
 
 opacity:.15;
 
-animation:
-particlesMove
-20s linear infinite;
+}
+if(config.backgroundImage){
+
+document.body.style.backgroundImage =
+`url(${config.backgroundImage})`;
+
+document.body.style.backgroundSize =
+"cover";
+
+document.body.style.backgroundPosition =
+"center";
+
+}
+/* hotel logo */
+
+.logo-bar{
+
+position:absolute;
+
+top:20px;
+left:20px;
+
+z-index:10;
 
 }
 
-@keyframes particlesMove{
+.logo-bar img{
 
-from{
-background-position:0 0;
-}
+height:clamp(
+50px,
+7vw,
+90px
+);
 
-to{
-background-position:0 1000px;
-}
-
-}
-
-/* FIREWORKS */
-
-#fireworks{
-
-position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-pointer-events:none;
-
-display:none;
-
-z-index:999;
+object-fit:contain;
 
 }
 
-/* CLOCK */
+/* clock */
 
-.clock{
+/*.clock{
 
 position:absolute;
 
 top:30px;
 right:30px;
 
-font-size:
-clamp(
+font-size:clamp(
 1rem,
 2vw,
-1.6rem
+1.8rem
 );
 
 font-weight:600;
 
 color:var(--gold);
 
-z-index:20;
+z-index:10;
 
 }
-
-/* FULLSCREEN BUTTON */
-
-#fullscreenBtn{
-
-position:absolute;
-
-bottom:20px;
-right:20px;
-
-background:
-rgba(212,175,55,.9);
-
-color:black;
-
-border:none;
-
-padding:12px 18px;
-
-border-radius:12px;
-
-font-weight:bold;
-
-cursor:pointer;
-
-z-index:9999;
-
-}
-
-#fullscreenBtn:hover{
-
-transform:scale(1.05);
-
-}
-
-@media(min-width:1024px){
-
-#fullscreenBtn{
-
-opacity:.15;
-
-}
-
-#fullscreenBtn:hover{
-
-opacity:1;
-
-}
-
-}
-
-/* CONTENT */
+*/
+/* content */
 
 .container{
+
+position:relative;
+
+z-index:5;
 
 width:100%;
 
@@ -191,31 +149,15 @@ padding:20px;
 
 text-align:center;
 
-position:relative;
-
-z-index:5;
-
 }
-  /* HOTEL LOGO */
 
-.logo-bar img{
-
-height:
-clamp(
-200px,
-8vw,
-100px
-);
-position:middle;
-}
-  /*
 .hotel-name{
 
 font-size:
 clamp(
-1rem,
+0.9rem,
 2vw,
-1.6rem
+1.4rem
 );
 
 letter-spacing:6px;
@@ -225,7 +167,7 @@ color:var(--gold);
 margin-bottom:15px;
 
 }
-*/
+
 .welcome{
 
 font-size:
@@ -252,7 +194,7 @@ clamp(
 
 font-weight:700;
 
-margin-bottom:15px;
+margin-bottom:10px;
 
 }
 
@@ -271,6 +213,8 @@ margin-bottom:40px;
 
 }
 
+/* countdown */
+
 .countdown{
 
 display:flex;
@@ -279,9 +223,9 @@ justify-content:center;
 
 align-items:center;
 
-gap:20px;
-
 flex-wrap:wrap;
+
+gap:20px;
 
 margin-bottom:40px;
 
@@ -293,21 +237,21 @@ background:
 rgba(255,255,255,.08);
 
 border:
-1px solid rgba(255,255,255,.15);
+1px solid rgba(255,255,255,.1);
 
 backdrop-filter:
 blur(10px);
 
 border-radius:20px;
 
-padding:20px;
-
 width:
 clamp(
 90px,
-16vw,
+18vw,
 180px
 );
+
+padding:20px;
 
 }
 
@@ -324,14 +268,9 @@ font-weight:700;
 
 color:var(--gold);
 
-animation:
-pulse 1s infinite;
-
 }
 
 .time-label{
-
-margin-top:10px;
 
 font-size:
 clamp(
@@ -342,23 +281,11 @@ clamp(
 
 letter-spacing:2px;
 
-}
-
-@keyframes pulse{
-
-0%{
-transform:scale(1);
-}
-
-50%{
-transform:scale(1.08);
-}
-
-100%{
-transform:scale(1);
-}
+margin-top:5px;
 
 }
+
+/* status */
 
 .status{
 
@@ -371,12 +298,16 @@ clamp(
 
 font-weight:600;
 
-text-shadow:
-0 0 15px #d4af37;
+color:white;
 
 margin-bottom:20px;
 
+text-shadow:
+0 0 15px #d4af37;
+
 }
+
+/* footer */
 
 .footer{
 
@@ -391,28 +322,7 @@ opacity:.9;
 
 }
 
-.happy-year{
-
-animation:
-zoomHappy 2s infinite alternate;
-
-}
-
-@keyframes zoomHappy{
-
-from{
-transform:scale(1);
-}
-
-to{
-transform:scale(1.15);
-}
-
-}
-
-body.signage{
-cursor:none;
-}
+/* mobile */
 
 @media(max-width:768px){
 
@@ -426,8 +336,8 @@ margin-bottom:20px;
 
 .logo-bar{
 
-top:10px;
-left:10px;
+top:15px;
+left:15px;
 
 }
 
@@ -447,6 +357,107 @@ padding:15px;
 
 }
 
+  /* FULLSCREEN BUTTON */
+
+#fullscreenBtn{
+
+position:absolute;
+
+bottom:20px;
+right:20px;
+
+background:rgba(212,175,55,.9);
+
+color:#000;
+
+border:none;
+
+padding:12px 18px;
+
+border-radius:12px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+z-index:9999;
+
+transition:.3s;
+
+}
+
+#fullscreenBtn:hover{
+
+transform:scale(1.05);
+
+}
+
+@media (min-width:1024px){
+
+#fullscreenBtn{
+
+opacity:.15;
+
+}
+
+#fullscreenBtn:hover{
+
+opacity:1;
+
+}
+  .happy-year{
+
+animation:
+zoomIn 2s infinite alternate;
+
+}
+
+@keyframes zoomIn{
+
+from{
+
+transform:
+scale(1);
+
+}
+
+to{
+
+transform:
+scale(1.15);
+
+}
+
+}
+  
+
+}
+
+/* SIGNAGE MODE */
+
+body.signage{
+
+cursor:none;
+
+}
+
+  #fireworks{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+z-index:999;
+
+pointer-events:none;
+
+display:none;
+
+}
 </style>
 
 </head>
@@ -464,19 +475,19 @@ alt="Hotel Logo">
 
 </div>
 
-<!-- <div
+<div
 class="clock"
 id="currentClock">
 
 </div>
--->
+
 <div class="container">
 
 <div
 class="hotel-name"
 id="hotelName">
 
-ALOFT BY MARRIOTT JAKARTA KEBON JERUK
+ALOFT JAKARTA KEBON JERUK
 
 </div>
 
@@ -513,11 +524,9 @@ id="days">
 0
 
 </div>
-  
+
 <div class="time-label">
-
 DAYS
-
 </div>
 
 </div>
@@ -531,11 +540,9 @@ id="hours">
 0
 
 </div>
-  
+
 <div class="time-label">
-
 HOURS
-
 </div>
 
 </div>
@@ -551,9 +558,7 @@ id="minutes">
 </div>
 
 <div class="time-label">
-
 MINUTES
-
 </div>
 
 </div>
@@ -569,9 +574,7 @@ id="seconds">
 </div>
 
 <div class="time-label">
-
 SECONDS
-
 </div>
 
 </div>
@@ -596,22 +599,12 @@ id="footerText">
 
 </div>
 
-<button
-id="fullscreenBtn"
-onclick="openFullscreen()">
-
-⛶ Full Screen
-
-</button>
-
 <script>
 
 let targetDate =
 new Date(
 "2027-01-01T00:00:00"
 ).getTime();
-
-/* LOAD CONFIG */
 
 function loadConfiguration(){
 
@@ -626,24 +619,19 @@ if(!config)
 return;
 
 hotelName.innerHTML =
-config.hotelName ||
-"ALOFT JAKARTA KEBON JERUK";
+config.hotelName || "";
 
 mainTitle.innerHTML =
-config.mainTitle ||
-"2027";
+config.mainTitle || "";
 
 subtitle.innerHTML =
-config.subtitle ||
-"NEW YEAR COUNTDOWN";
+config.subtitle || "";
 
 statusMessage.innerHTML =
-config.statusText ||
-"✨ EVENT STARTS SOON ✨";
+config.statusText || "";
 
 footerText.innerHTML =
-config.footer ||
-"01 JANUARY 2027 • 00:00 WIB";
+config.footer || "";
 
 if(config.hotelLogo){
 
@@ -670,26 +658,6 @@ loadConfiguration,
 30000
 );
 
-/* CLOCK */
-/*
-function updateClock(){
-
-currentClock.innerHTML =
-
-new Date()
-.toLocaleString();
-
-}
-
-setInterval(
-updateClock,
-1000
-);
-
-updateClock();
-
-/* COUNTDOWN */
-
 function updateCountdown(){
 
 const now =
@@ -700,17 +668,15 @@ targetDate - now;
 
 if(distance <= 0){
 
-statusMessage.innerHTML =
+document.getElementById(
+"statusMessage"
+).innerHTML =
 
-"🎉 HAPPY NEW YEAR 🎉";
+"🎉 HAPPY NEW YEAR 2027 🎉";
 
-mainTitle.innerHTML =
+document.body.style.background =
 
-" 2027 ";
-
-mainTitle.classList.add(
-"happy-year"
-);
+"linear-gradient(135deg,#6d28d9,#ec4899,#f59e0b)";
 
 document.getElementById(
 "fireworks"
@@ -726,27 +692,29 @@ true;
 
 setInterval(
 createFirework,
-400
+500
 );
 
 }
-
-/*days.innerHTML = "0";*/
-hours.innerHTML = "0";
-minutes.innerHTML = "0";
-seconds.innerHTML = "0";
 
 return;
 
 }
 
-/*days.innerHTML =
+statusMessage.innerHTML =
+"🎉 EVENT STARTED 🎉";
+
+return;
+
+}
+
+const days =
 Math.floor(
 distance /
 (1000*60*60*24)
 );
-*/
-hours.innerHTML =
+
+const hours =
 Math.floor(
 (distance %
 (1000*60*60*24))
@@ -754,7 +722,7 @@ Math.floor(
 (1000*60*60)
 );
 
-minutes.innerHTML =
+const minutes =
 Math.floor(
 (distance %
 (1000*60*60))
@@ -762,13 +730,29 @@ Math.floor(
 (1000*60)
 );
 
-seconds.innerHTML =
+const seconds =
 Math.floor(
 (distance %
 (1000*60))
 /
 1000
 );
+
+document.getElementById("days")
+.innerHTML =
+days;
+
+document.getElementById("hours")
+.innerHTML =
+hours;
+
+document.getElementById("minutes")
+.innerHTML =
+minutes;
+
+document.getElementById("seconds")
+.innerHTML =
+seconds;
 
 }
 
@@ -778,6 +762,44 @@ updateCountdown,
 );
 
 updateCountdown();
+
+function updateClock(){
+
+currentClock.innerHTML =
+new Date()
+.toLocaleString();
+
+}
+
+setInterval(
+updateClock,
+1000
+);
+
+updateClock();
+
+  document.getElementById(
+"mainTitle"
+).innerHTML =
+
+"🎉 2027 🎉";
+
+document.getElementById(
+"mainTitle"
+).classList.add(
+"happy-year"
+);
+  
+</script>
+<button
+id="fullscreenBtn"
+onclick="openFullscreen()">
+
+⛶ Full Screen
+
+</button>
+
+  <script>
 
 /* FULLSCREEN */
 
@@ -791,15 +813,97 @@ if(elem.requestFullscreen){
 elem.requestFullscreen();
 
 }
+else if(elem.webkitRequestFullscreen){
+
+elem.webkitRequestFullscreen();
+
+}
+else if(elem.msRequestFullscreen){
+
+elem.msRequestFullscreen();
 
 }
 
+}
+
+/* EXIT */
+
+function closeFullscreen(){
+
+if(document.exitFullscreen){
+
+document.exitFullscreen();
+
+}
+
+}
+
+/* DOUBLE CLICK TOGGLE */
+
 document.addEventListener(
 "dblclick",
-openFullscreen
+function(){
+
+if(
+!document.fullscreenElement
+){
+
+openFullscreen();
+
+}
+else{
+
+closeFullscreen();
+
+}
+
+}
 );
 
-/* FIREWORKS */
+/* AUTO SIGNAGE MODE */
+
+function enableSignageMode(){
+
+document.body.classList.add(
+"signage"
+);
+
+}
+
+/* FIRST CLICK AUTO FULLSCREEN */
+
+document.addEventListener(
+"click",
+function(){
+
+if(
+!document.fullscreenElement
+){
+
+openFullscreen();
+
+enableSignageMode();
+
+}
+
+},
+{
+once:true
+}
+);
+
+</script>
+  <script>
+
+setInterval(() => {
+
+loadConfiguration();
+
+},30000);
+
+</script>
+
+  <script>
 
 const canvas =
 document.getElementById(
@@ -811,24 +915,13 @@ canvas.getContext(
 "2d"
 );
 
-function resizeCanvas(){
-
 canvas.width =
 window.innerWidth;
 
 canvas.height =
 window.innerHeight;
 
-}
-
-resizeCanvas();
-
-window.addEventListener(
-"resize",
-resizeCanvas
-);
-
-let particles=[];
+let particles = [];
 
 function createFirework(){
 
@@ -838,13 +931,14 @@ canvas.width;
 
 const y =
 Math.random() *
-(canvas.height*0.6);
+(canvas.height / 2);
 
-for(let i=0;i<100;i++){
+for(let i=0;i<120;i++){
 
 particles.push({
 
 x:x,
+
 y:y,
 
 radius:
@@ -859,7 +953,10 @@ vy:
 alpha:1,
 
 color:
-`hsl(${Math.random()*360},100%,60%)`
+
+`hsl(${
+Math.random()*360
+},100%,60%)`
 
 });
 
@@ -895,11 +992,17 @@ Math.PI*2
 );
 
 ctx.fillStyle =
-`rgba(255,255,255,${p.alpha})`;
+p.color
+.replace(
+")",
+`,`+p.alpha+")"
+);
 
 ctx.fill();
 
-if(p.alpha<=0){
+if(
+p.alpha <= 0
+){
 
 particles.splice(
 index,
@@ -920,5 +1023,6 @@ animateFireworks();
 
 </script>
 
+  
 </body>
 </html>
