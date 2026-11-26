@@ -82,9 +82,9 @@ background-position:0 1000px;
 
 position:absolute;
 
-top:40px;
-left:60px;
-right:60px;
+top:20px;
+left:20px;
+right:20px;
 
 display:flex;
 
@@ -98,11 +98,17 @@ z-index:10;
 
 .logo-bar img{
 
-height:90px;
+height:
+clamp(
+40px,
+8vw,
+90px
+);
 
 object-fit:contain;
 
 }
+
 
 .company-logo{
 
@@ -149,21 +155,43 @@ width:90%;
 
 .hotel-name{
 
-font-size:1.4rem;
+font-size:
+clamp(
+0.9rem,
+2vw,
+1.4rem
+);
 
-letter-spacing:8px;
+letter-spacing:
+clamp(
+2px,
+0.8vw,
+8px
+);
 
 color:#D4AF37;
 
 margin-bottom:20px;
 
+text-align:center;
+
 }
 
 .welcome{
 
-font-size:1.8rem;
+font-size:
+clamp(
+1rem,
+3vw,
+1.8rem
+);
 
-letter-spacing:10px;
+letter-spacing:
+clamp(
+3px,
+1vw,
+10px
+);
 
 margin-bottom:20px;
 
@@ -175,7 +203,12 @@ font-family:
 'Cormorant Garamond',
 serif;
 
-font-size:5rem;
+font-size:
+clamp(
+2.5rem,
+8vw,
+5rem
+);
 
 font-weight:700;
 
@@ -201,9 +234,13 @@ display:flex;
 
 justify-content:center;
 
-gap:25px;
+align-items:center;
+
+gap:20px;
 
 flex-wrap:wrap;
+
+margin-top:20px;
 
 }
 
@@ -220,15 +257,25 @@ border:
 
 border-radius:25px;
 
-padding:30px;
+padding:20px;
 
-width:180px;
+width:
+clamp(
+90px,
+15vw,
+180px
+);
 
 }
 
 .time-number{
 
-font-size:4rem;
+font-size:
+clamp(
+2rem,
+6vw,
+4rem
+);
 
 font-weight:700;
 
@@ -304,6 +351,81 @@ margin-top:30px;
 font-size:1.2rem;
 
 color:#d1d5db;
+
+}
+ @media (max-width:768px){
+
+.logo-bar{
+
+top:15px;
+
+left:15px;
+right:15px;
+
+}
+
+.clock{
+
+display:none;
+
+}
+
+.company{
+
+font-size:2.5rem;
+
+}
+
+.subtitle{
+
+font-size:1.2rem;
+
+}
+
+.time-box{
+
+width:120px;
+
+}
+
+.status{
+
+font-size:1.3rem;
+
+}
+
+.footer{
+
+font-size:.9rem;
+
+padding-left:20px;
+padding-right:20px;
+
+}
+
+}
+
+@media (max-width:480px){
+
+.time-box{
+
+width:90px;
+
+padding:15px;
+
+}
+
+.time-number{
+
+font-size:2rem;
+
+}
+
+.time-label{
+
+font-size:.8rem;
+
+}
 
 }
 
@@ -636,10 +758,11 @@ document.getElementById(
 
 }
 
-setInterval(
-updateCountdown,
-1000
-);
+setInterval(() => {
+
+loadConfiguration();
+
+},30000);
 
 updateCountdown();
 
