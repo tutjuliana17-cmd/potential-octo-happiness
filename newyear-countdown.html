@@ -664,6 +664,75 @@ updateClock,
 updateClock();
 
 </script>
+<script>
 
+function loadConfiguration(){
+
+    const config = JSON.parse(
+        localStorage.getItem(
+            "countdownConfig"
+        )
+    );
+
+    if(!config) return;
+
+    document.querySelector(
+        ".hotel-name"
+    ).innerHTML =
+    config.hotelName;
+
+    document.querySelector(
+        ".company"
+    ).innerHTML =
+    config.mainTitle;
+
+    document.querySelector(
+        ".subtitle"
+    ).innerHTML =
+    config.subtitle;
+
+    document.getElementById(
+        "statusMessage"
+    ).innerHTML =
+    config.statusText;
+
+    document.querySelector(
+        ".footer"
+    ).innerHTML =
+    config.footer;
+
+    if(config.hotelLogo){
+
+        document.getElementById(
+            "hotelLogo"
+        ).src =
+        config.hotelLogo;
+
+    }
+
+    if(config.companyLogo){
+
+        document.getElementById(
+            "companyLogo"
+        ).src =
+        config.companyLogo;
+
+    }
+
+    eventDate =
+    new Date(
+        config.eventDate
+    ).getTime();
+
+}
+
+loadConfiguration();
+
+setInterval(
+    loadConfiguration,
+    30000
+);
+
+</script>
 </body>
 </html>
