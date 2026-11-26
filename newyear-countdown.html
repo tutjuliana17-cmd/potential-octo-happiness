@@ -206,7 +206,7 @@ top:20px;
 middle:20px;
 
 z-index:20;
-
+margin-bottom:15px;
 }
 
 .logo-bar img{
@@ -217,8 +217,7 @@ clamp(
 8vw,
 100px
 );
-margin-bottom:15px;
-object-fit:contain;
+
 
 }
 .hotel-name{
@@ -743,7 +742,7 @@ createFirework,
 
 }
 
-days.innerHTML = "0";
+/*days.innerHTML = "0";*/
 hours.innerHTML = "0";
 minutes.innerHTML = "0";
 seconds.innerHTML = "0";
@@ -752,12 +751,12 @@ return;
 
 }
 
-days.innerHTML =
+/*days.innerHTML =
 Math.floor(
 distance /
 (1000*60*60*24)
 );
-
+*/
 hours.innerHTML =
 Math.floor(
 (distance %
