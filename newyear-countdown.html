@@ -73,7 +73,18 @@ background-size:40px 40px;
 opacity:.15;
 
 }
+if(config.backgroundImage){
 
+document.body.style.backgroundImage =
+`url(${config.backgroundImage})`;
+
+document.body.style.backgroundSize =
+"cover";
+
+document.body.style.backgroundPosition =
+"center";
+
+}
 /* hotel logo */
 
 .logo-bar{
